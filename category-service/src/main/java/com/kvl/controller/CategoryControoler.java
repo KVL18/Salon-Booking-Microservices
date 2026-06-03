@@ -26,7 +26,7 @@ public class CategoryControoler {
 
     }
 
-    @GetMapping("/  {id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Category>getCategoryById(
             @PathVariable Long id
     ) throws Exception {

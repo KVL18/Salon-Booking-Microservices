@@ -1,7 +1,5 @@
 package com.kvl.payload.dto;
 
-
-import com.kvl.domain.BookingStatus;
 import jakarta.persistence.ElementCollection;
 import lombok.Data;
 
@@ -23,9 +21,10 @@ public class BookingDTO {
 
     @ElementCollection
     private Set<Long> serviceIds;
+    private int totalPrice;
 
 
-    private BookingStatus status = BookingStatus.PENDING;
+    //private BookingStatus status = BookingStatus.PENDING;
 
     //private int  totalPrice;
 

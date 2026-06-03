@@ -38,7 +38,7 @@ public class SalonController {
         return ResponseEntity.ok(salonDTO1);
     }
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<List<SalonDTO>> getSalons() throws Exception {
 
         List<Salon>salons = salonService.getAllSalons();
@@ -84,7 +84,7 @@ public class SalonController {
 
 
     }
-    @GetMapping("/owner")
+    @GetMapping("/owner/ownerId")
     public ResponseEntity<SalonDTO> getSalonByOwnerId(
             @PathVariable Long ownerId
     ) throws Exception {

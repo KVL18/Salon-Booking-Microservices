@@ -1,4 +1,4 @@
-package com.kvl.service;
+package com.kvl.service.impl;
 
 import com.kvl.exception.UserException;
 import com.kvl.model.User;

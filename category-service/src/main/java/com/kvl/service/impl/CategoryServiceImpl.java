@@ -1,4 +1,4 @@
-package com.kvl.service;
+package com.kvl.service.impl;
 
 import com.kvl.dto.SalonDTO;
 import com.kvl.model.Category;
