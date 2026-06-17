@@ -1,6 +1,6 @@
 package com.kvl.exception;
 
-import com.kvl.payload.ExceptionResponse;
+import com.kvl.payload.response.ExceptionResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

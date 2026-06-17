@@ -1,4 +1,4 @@
-package com.kvl.payload;
+package com.kvl.payload.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
