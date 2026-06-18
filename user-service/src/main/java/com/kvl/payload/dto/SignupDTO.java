@@ -1,6 +1,7 @@
 package com.kvl.payload.dto;
 
 
+import com.kvl.domain.UserRole;
 import lombok.Data;
 
 @Data
