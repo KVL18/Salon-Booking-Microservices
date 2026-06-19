@@ -1,5 +1,6 @@
 package com.kvl.model;
 
+import com.kvl.domain.UserRole;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -33,8 +34,8 @@ public class User {
 
     private String phone;
 
-    @NotBlank(message = "role is mandatory")
-    private String role;
+    @Column(nullable = false)
+    private UserRole role;
 
     @CreationTimestamp
     private LocalDateTime createdAt;

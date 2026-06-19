@@ -6,9 +6,9 @@ import com.kvl.payload.response.AuthResponse;
 
 public interface AuthService {
 
-    AuthResponse login(String username, String password);
-    AuthResponse signup(SignupDTO req);
-    AuthResponse getAcessTokenFromRefreshToken(String refreshToken);
+    AuthResponse login(String username, String password) throws Exception;
+    AuthResponse signup(SignupDTO req) throws Exception;
+    AuthResponse getAcessTokenFromRefreshToken(String refreshToken) throws Exception;
 
 
 
