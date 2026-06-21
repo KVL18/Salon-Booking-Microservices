@@ -27,7 +27,8 @@ public class AuthServiceImpl implements AuthService {
         TokenResponse tokenResponse = keycloakService.getAdminAccessToken(
                 username,
                 password,
-                "password",null
+                "password",
+                null
         );
         AuthResponse authResponse= new AuthResponse();
         authResponse.setRefresh_token(tokenResponse.getRefreshToken());

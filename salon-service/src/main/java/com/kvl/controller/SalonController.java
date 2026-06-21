@@ -6,6 +6,7 @@ import com.kvl.model.Salon;
 import com.kvl.payload.dto.SalonDTO;
 import com.kvl.payload.dto.UserDTO;
 import com.kvl.service.SalonService;
+import com.kvl.service.client.UserFeignClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,12 +18,15 @@ import java.util.List;
 @RequestMapping("/api/salons")
 public class SalonController {
 
+    private final UserFeignClient userFeignClient;
     private final SalonService salonService;
 
     @PostMapping
-    public ResponseEntity<SalonDTO> createSalon(@RequestBody SalonDTO salonDTO){
-        UserDTO userDTO = new UserDTO();
-        userDTO.setId(1L);
+    public ResponseEntity<SalonDTO> createSalon(
+            @RequestBody SalonDTO salonDTO,
+            @RequestHeader("Authorization") String jwt) throws Exception {
+
+        UserDTO userDTO = userFeignClient.getUserProfile(jwt).getBody();
         Salon salon = salonService.createSalon(salonDTO,userDTO);
         SalonDTO salonDTO1 = SalonMapper.maptoDTO(salon);
         return ResponseEntity.ok(salonDTO1);
@@ -30,9 +34,10 @@ public class SalonController {
 
     @PutMapping("/{salonId}")
     public ResponseEntity<SalonDTO> updateSalon(@RequestBody SalonDTO salonDTO,
-                                                @PathVariable Long salonId) throws Exception {
-        UserDTO userDTO = new UserDTO();
-        userDTO.setId(1L);
+                                                @PathVariable Long salonId,
+                                                @RequestHeader("Authorization") String jwt
+    ) throws Exception {
+        UserDTO userDTO = userFeignClient.getUserProfile(jwt).getBody();
         Salon salon = salonService.updateSalon(salonDTO,userDTO,salonId);
         SalonDTO salonDTO1 = SalonMapper.maptoDTO(salon);
         return ResponseEntity.ok(salonDTO1);
@@ -84,12 +89,16 @@ public class SalonController {
 
 
     }
-    @GetMapping("/owner/ownerId")
+    @GetMapping("/owner")
     public ResponseEntity<SalonDTO> getSalonByOwnerId(
-            @PathVariable Long ownerId
+            @RequestHeader("Authorization") String jwt
     ) throws Exception {
-        UserDTO userDTO = new UserDTO();
-        userDTO.setId(1L);
+        UserDTO userDTO = userFeignClient.getUserProfile(jwt).getBody();
+
+        if(userDTO==null){
+            throw  new Exception("user not found from jwt.");
+        }
+
         Salon salon = salonService.getSalonByOwnerId(userDTO.getId());
         SalonDTO salonDTO = SalonMapper.maptoDTO(salon);
         return ResponseEntity.ok(salonDTO);

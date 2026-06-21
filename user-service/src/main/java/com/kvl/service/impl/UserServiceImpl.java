@@ -2,7 +2,9 @@ package com.kvl.service.impl;
 
 import com.kvl.exception.UserException;
 import com.kvl.model.User;
+import com.kvl.payload.dto.KeycloakUserDTO;
 import com.kvl.repository.UserRepository;
+import com.kvl.service.KeycloakService;
 import com.kvl.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service; 
@@ -15,6 +17,8 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final KeycloakService keycloakService;
+
 
     @Override
     public User createUser(User user) {
@@ -58,5 +62,12 @@ public class UserServiceImpl implements UserService {
         existingUser.setUserName(user.getUserName());
 
         return userRepository.save(existingUser);
+    }
+
+    @Override
+    public User getUserFromJwt(String jwt) throws Exception {
+       KeycloakUserDTO keycloakUserDTO=  keycloakService.fetchUserProfileByJwt(jwt);
+        User user = userRepository.findByEmail(keycloakUserDTO.getEmail());
+        return user;
     }
 }

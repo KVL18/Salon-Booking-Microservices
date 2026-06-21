@@ -30,7 +30,7 @@ public class AuthController {
     public ResponseEntity<AuthResponse> login(
             @RequestBody LoginDTO req
             ) throws Exception {
-        AuthResponse response = authService.login(req.getUsername(),req.getPassword());
+        AuthResponse response = authService.login(req.getEmail(),req.getPassword());
         return  ResponseEntity.ok(response);
     }
 
