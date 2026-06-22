@@ -6,6 +6,8 @@ import com.kvl.dto.SalonDTO;
 import com.kvl.dto.ServiceDTO;
 import com.kvl.model.ServiceOffering;
 import com.kvl.service.ServiceOfferingService;
+import com.kvl.service.client.CategoryFeignClient;
+import com.kvl.service.client.SalonFeignClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,16 +20,22 @@ import java.util.Set;
 public class SalonServiceOfferingController {
 
     private  final ServiceOfferingService serviceOfferingService;
+    private final SalonFeignClient salonFeignClient;
+    private final CategoryFeignClient categoryFeignClient;
 
     @PostMapping
     public ResponseEntity<ServiceOffering> createService(
-            @RequestBody ServiceDTO serviceDTO
-            ){
-        SalonDTO salonDTO = new SalonDTO();
-        salonDTO.setId(1L);
-
-        CategoryDTO categoryDTO = new CategoryDTO();
-        categoryDTO.setId(serviceDTO.getCategory());
+            @RequestBody ServiceDTO serviceDTO,
+            @RequestHeader("Authorization") String jwt
+            ) throws Exception {
+        SalonDTO salonDTO = salonFeignClient.getSalonByOwnerId(jwt).getBody();
+        System.out.println("salonDTO.getId() = " + salonDTO.getId());
+        System.out.println("serviceDTO.getCategory() = " + serviceDTO.getCategory());
+        CategoryDTO categoryDTO =
+                categoryFeignClient.getCategoriesByIdAndSalon(
+                        serviceDTO.getCategory(), // 352
+                        salonDTO.getId()          // 2
+                ).getBody();
 
         ServiceOffering serviceOfferings = serviceOfferingService.createService(
                 salonDTO,

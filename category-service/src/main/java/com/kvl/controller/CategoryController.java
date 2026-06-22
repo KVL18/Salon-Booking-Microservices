@@ -12,7 +12,7 @@ import java.util.Set;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/categories")
-public class CategoryControoler {
+public class CategoryController {
 
     private final CategoryService categoryService;
 
@@ -34,5 +34,6 @@ public class CategoryControoler {
         return ResponseEntity.ok(category);
 
     }
+
 
 }

@@ -1,15 +1,11 @@
 package com.kvl.controller;
 
-
 import com.kvl.model.ServiceOffering;
 import com.kvl.service.ServiceOfferingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Set;
-
-
 
 @RequiredArgsConstructor
 @RestController

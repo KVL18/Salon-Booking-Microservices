@@ -48,7 +48,23 @@ public class CategoryServiceImpl implements CategoryService {
        }
        categoryRepository.deleteById(id);
 
-
-
     }
+
+    @Override
+    public Category findByIdAnsSalonId(Long id, Long salonId) throws Exception {
+
+        System.out.println("id = " + id);
+        System.out.println("salonId = " + salonId);
+
+        Category category = categoryRepository.findByIdAndSalonId(id, salonId);
+
+        System.out.println("category = " + category);
+
+        if(category == null){
+            throw new Exception("Category not found");
+        }
+
+        return category;
+    }
+
 }
