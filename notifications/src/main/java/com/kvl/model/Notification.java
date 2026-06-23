@@ -28,6 +28,6 @@ public class Notification {
 
     private Long salonId;
 
-    private LocalDateTime createdAt;
-
+    private LocalDateTime createdAt = LocalDateTime.now();
 }
+

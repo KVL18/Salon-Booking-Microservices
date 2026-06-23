@@ -76,6 +76,11 @@ spring:
             - Path=/api/service-offering/**
 
 
+        - id: notifications
+          uri: lb://NOTIFICATIONS
+          predicates:
+            - Path=/api/notifications/**
+
   security:
     oauth2:
       resourceserver:
