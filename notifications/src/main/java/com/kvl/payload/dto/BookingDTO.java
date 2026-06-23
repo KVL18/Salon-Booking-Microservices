@@ -1,4 +1,4 @@
-package com.kvl.dto;
+package com.kvl.payload.dto;
 
 
 import com.kvl.domain.BookingStatus;

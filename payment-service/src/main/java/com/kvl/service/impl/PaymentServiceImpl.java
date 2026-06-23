@@ -49,6 +49,8 @@ public class PaymentServiceImpl implements PaymentService {
         order.setPaymentMethod(paymentMethod);
         order.setBookingId(booking.getId());
         order.setSalonId(booking.getSalonId());
+
+        order.setUserId(user.getId());
         PaymentOrder savedOrder = paymentOrderRepository.save(order);
 
         PaymentLinkResponse paymentLinkResponse = new PaymentLinkResponse();
@@ -161,7 +163,7 @@ public class PaymentServiceImpl implements PaymentService {
                 String status = payment.get("status");
 
                 if(status.equals("captured")){
-
+                       //kafka event
                     paymentOrder.setStatus(PaymentOrderStatus.SUCCESS);
                     paymentOrderRepository.save(paymentOrder);
                     return true;

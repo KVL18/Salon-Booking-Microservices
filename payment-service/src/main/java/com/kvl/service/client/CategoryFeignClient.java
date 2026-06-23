@@ -1,7 +1,8 @@
 package com.kvl.service.client;
 
 
-import com.kvl.dto.CategoryDTO;
+
+import com.kvl.payload.dto.CategoryDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

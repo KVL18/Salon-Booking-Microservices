@@ -1,9 +1,12 @@
+server:
+  port: 5007
+
 spring:
   application:
-    name: payment-service
+    name: notifications
 
   datasource:
-    url: jdbc:mysql://localhost:3306/payment_service_db?createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/notification_db?createDatabaseIfNotExist=true
     username: root
     password: Kvishwash@2001
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -12,18 +15,6 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-
-server:
-  port: 5006
-
-razorpay:
-  api:
-    key: rzp_test_T4x2gKD5Xdovd7
-    secret: iGwVVqtgS5Mk9wYWcLYJBcyC
-
-stripe:
-  api:
-    key: "stripe api key"
 
 eureka:
   instance:
