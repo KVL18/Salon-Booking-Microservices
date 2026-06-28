@@ -1,3 +1,6 @@
+server:
+  port: 5006
+
 spring:
   application:
     name: payment-service
@@ -13,8 +16,6 @@ spring:
       ddl-auto: update
     show-sql: true
 
-server:
-  port: 5006
 
 razorpay:
   api:
@@ -34,3 +35,10 @@ eureka:
     register-with-eureka: true
     service-url:
       defaultZone: http://localhost:8070/eureka/
+
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest

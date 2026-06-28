@@ -7,6 +7,7 @@ import com.kvl.dto.SalonDTO;
 import com.kvl.dto.ServiceDTO;
 import com.kvl.dto.UserDTO;
 import com.kvl.model.Booking;
+import com.kvl.model.PaymentOrder;
 import com.kvl.model.SalonReport;
 import com.kvl.repository.BookingRepository;
 import com.kvl.service.BookingService;
@@ -91,8 +92,6 @@ public class BookingServiceImpl implements BookingService {
 
     }
 
-
-
     @Override
     public List<Booking> getBookingsByCustomer(Long customerId) {
          return bookingRepository.findByCustomerId(customerId);
@@ -158,4 +157,13 @@ public class BookingServiceImpl implements BookingService {
 
         return  report;
     }
+
+    @Override
+    public Booking bookingSuccess(PaymentOrder order) throws Exception {
+        Booking existingBooking = getBookingsById(order.getBookingId());
+        existingBooking.setStatus(BookingStatus.CONFIRM);
+        return bookingRepository.save(existingBooking);
+    }
+
+
 }

@@ -2,6 +2,8 @@ package com.kvl.service.impl;
 
 import com.kvl.domain.PaymentMethod;
 import com.kvl.domain.PaymentOrderStatus;
+import com.kvl.messaging.BookingEventProducer;
+import com.kvl.messaging.NotificationEventProducer;
 import com.kvl.model.PaymentOrder;
 import com.kvl.payload.dto.BookingDTO;
 import com.kvl.payload.dto.UserDTO;
@@ -18,6 +20,7 @@ import com.stripe.model.checkout.Session;
 import com.stripe.param.checkout.SessionCreateParams;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +31,9 @@ public class PaymentServiceImpl implements PaymentService {
 
 
     private final PaymentOrderRepository paymentOrderRepository;
+    private final BookingEventProducer bookingEventProducer;
+    private final NotificationEventProducer notificationEventProducer;
+
 
     @Value("${stripe.api.key}")
     private  String stripeSecretKey;
@@ -164,6 +170,10 @@ public class PaymentServiceImpl implements PaymentService {
 
                 if(status.equals("captured")){
                        //kafka event
+                    bookingEventProducer.sentBookingUpdateEvent(paymentOrder);
+                    notificationEventProducer.sentNotification(paymentOrder.getBookingId(),
+                            paymentOrder.getUserId(),paymentOrder.getSalonId());
+
                     paymentOrder.setStatus(PaymentOrderStatus.SUCCESS);
                     paymentOrderRepository.save(paymentOrder);
                     return true;

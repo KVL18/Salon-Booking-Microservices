@@ -6,6 +6,7 @@ import com.kvl.dto.SalonDTO;
 import com.kvl.dto.ServiceDTO;
 import com.kvl.dto.UserDTO;
 import com.kvl.model.Booking;
+import com.kvl.model.PaymentOrder;
 import com.kvl.model.SalonReport;
 
 import java.time.LocalDate;
@@ -26,6 +27,8 @@ public interface BookingService {
     List<Booking>getBookingsByDate(LocalDate date, Long salonId);
 
     SalonReport getSalonReport(Long salonId);
+
+    Booking bookingSuccess(PaymentOrder order) throws Exception;
 
 
 }
