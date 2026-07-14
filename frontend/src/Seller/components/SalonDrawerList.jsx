@@ -70,10 +70,10 @@ const menu2=[
     }
 ]
 
-const SalonDrawerList = () => {
+const SalonDrawerList = ({toogleDrawer}) => {
   return (
     <div>
-      <DrawerList menu={menu} menu2={menu2}/>
+      <DrawerList menu={menu} menu2={menu2}  toogleDrawer={toogleDrawer}/>
     </div>
   )
 }

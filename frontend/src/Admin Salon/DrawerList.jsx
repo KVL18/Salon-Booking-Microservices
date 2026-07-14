@@ -2,12 +2,16 @@ import { Divider, ListItemIcon, ListItemText } from "@mui/material";
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const DrawerList = ({ menu, menu2 }) => {
+const DrawerList = ({ menu, menu2, toogleDrawer }) => {
+
   const navigate = useNavigate();
   const location = useLocation();
   const handleClick = (item) => () => {
     console.log(item.path);
     navigate(item.path);
+    if(toogleDrawer){
+        toogleDrawer(false)();
+    }
   };
   return (
     <div className="h-full">
